@@ -272,7 +272,7 @@ class Config(models.Model):
         max_digits=10,
         decimal_places=2,
         verbose_name="Valor unidad reajustable",
-        default=1621,
+        default=1835.93,
     )
     gc = models.DecimalField(
         max_digits=10,
@@ -280,11 +280,23 @@ class Config(models.Model):
         verbose_name="Valor gastos comunes",
         default=3500,
     )
-    bedroom_price_ur = models.DecimalField(
+    bedroom_price_ur_2 = models.DecimalField(
         max_digits=10,
         decimal_places=2,
-        verbose_name="Precio dormitorio en UR",
-        default=2.96,
+        verbose_name="Precio 2 dormitorios (UR)",
+        default=6.35,
+    )
+    bedroom_price_ur_3 = models.DecimalField(
+        max_digits=10,
+        decimal_places=2,
+        verbose_name="Precio 3 dormitorios (UR)",
+        default=9.31,
+    )
+    bedroom_price_ur_4 = models.DecimalField(
+        max_digits=10,
+        decimal_places=2,
+        verbose_name="Precio 4 dormitorios (UR)",
+        default=12.27,
     )
     maintainance_fund = models.DecimalField(
         max_digits=10,
@@ -302,6 +314,14 @@ class Config(models.Model):
             date = self.updated_at
             return f"Configuracion al {date.day}/{date.month}/{date.year}"
         return "Configuracion"
+    
+    @property
+    def bedroom_prices(self):
+        return [
+            self.bedroom_price_ur_2,
+            self.bedroom_price_ur_3,
+            self.bedroom_price_ur_4,
+        ]
 
     @classmethod
     def get_config(cls):

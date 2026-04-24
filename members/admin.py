@@ -16,7 +16,7 @@ from .models import (
     BankSync,
 )
 
-from .forms import BankSyncForm
+# from .forms import BankSyncForm
 
 from members.constants import gen_cuota_social
 
@@ -28,12 +28,21 @@ def generate_debt(modeladmin, request, queryset):
 
     for member in queryset:
 
-        remnant_ammount = member.total_debt - member.total_paid
-        if remnant_ammount > 0:
-            remnant_ammount *= Decimal(1.1)
-
         month_debt = Debt(member=member)
         month_debt.save()
+
+        remnant_ammount = member.total_debt - member.total_paid
+        if remnant_ammount > 10:
+            # $10 es el límite a partir del cual se cobra atraso
+            overdue_tax = DebtLine(
+                member=member,
+                debt=month_debt,
+                type="atraso_cuota",
+                ammount=remnant_ammount * Decimal(0.1)
+            )
+            overdue_tax.save()
+            # remnant_ammount *= Decimal(1.1)
+
         # Saldos anteriores
         if remnant_ammount != 0:
             remnants = DebtLine(
@@ -89,7 +98,7 @@ class DebtAmmendAdmin(admin.ModelAdmin):
 class BankSyncAdmin(admin.ModelAdmin):
 
     list_display = ["created_at"]
-    form = BankSyncForm
+    # form = BankSyncForm
 
 
 @admin.register(Payment)
