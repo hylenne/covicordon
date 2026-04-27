@@ -5,6 +5,8 @@ from django.shortcuts import render
 from django.contrib import admin
 
 from simple_history.admin import SimpleHistoryAdmin
+import datetime
+from dateutil.relativedelta import relativedelta
 
 from .models import (
     Member,
@@ -32,16 +34,6 @@ def generate_debt(modeladmin, request, queryset):
         month_debt.save()
 
         remnant_ammount = member.total_debt - member.total_paid
-        if remnant_ammount > 10:
-            # $10 es el límite a partir del cual se cobra atraso
-            overdue_tax = DebtLine(
-                member=member,
-                debt=month_debt,
-                type="atraso_cuota",
-                ammount=remnant_ammount * Decimal(0.1)
-            )
-            overdue_tax.save()
-            # remnant_ammount *= Decimal(1.1)
 
         # Saldos anteriores
         if remnant_ammount != 0:
@@ -69,7 +61,9 @@ def generate_debt(modeladmin, request, queryset):
         for debt in [cuota_social, gastos_comunes]:
             debt.save()
         # Convenios activos si tiene
+        active_ammend = False
         for debt_ammend in [da for da in member.convenios.all() if not da.done]:
+            active_ammend = True
             debt = DebtLine(
                 member=member,
                 type="convenio_social",
@@ -80,6 +74,34 @@ def generate_debt(modeladmin, request, queryset):
             debt.save()
             debt_ammend.due_payments += 1
             debt_ammend.save()
+        
+
+        if not active_ammend and Debt.objects.filter(member=member).count()>1:
+            payment_deadline = (
+                month_debt.created_at - relativedelta(months=1)
+                ).date().replace(day=15)
+
+            late_payments = [
+                p for p in member.payments.all()
+                if p.deposited_at and p.deposited_at > payment_deadline
+            ]
+
+            balance_at_15th = remnant_ammount + sum(p.ammount for p in late_payments)
+            print(f"balance 15th {balance_at_15th}\nremnant amount {remnant_ammount}")
+            
+            if balance_at_15th > 10:
+                # $10 es el límite a partir del cual se cobra atraso
+                print("atraso cuota")
+                overdue_tax = DebtLine(
+                    member=member,
+                    debt=month_debt,
+                    type="atraso_cuota",
+                    ammount=balance_at_15th * Decimal(0.1),
+                )
+                print(overdue_tax)
+                overdue_tax.save()
+
+
 
 
 @admin.register(DebtAmmend)
