@@ -62,9 +62,7 @@ def generate_debt(modeladmin, request, queryset):
         for debt in [cuota_social, gastos_comunes]:
             debt.save()
         # Convenios activos si tiene
-        active_ammend = False
         for debt_ammend in [da for da in member.convenios.all() if not da.done]:
-            active_ammend = True
             debt = DebtLine(
                 member=member,
                 type="convenio_social",
@@ -73,7 +71,7 @@ def generate_debt(modeladmin, request, queryset):
                 debt=month_debt,
             )
             debt.save()
-            debt_ammend.due_payments += 1
+            # debt_ammend.due_payments += 1
             debt_ammend.save()
         
         # Subsidios
@@ -86,7 +84,8 @@ def generate_debt(modeladmin, request, queryset):
             )
             al.save()
 
-        if not active_ammend and Debt.objects.filter(member=member).count()>1:
+
+        if Debt.objects.filter(member=member).count()>1:
             payment_deadline = (
                 month_debt.created_at - relativedelta(months=1)
                 ).date().replace(day=15)
@@ -124,6 +123,13 @@ class DebtAmmendAdmin(admin.ModelAdmin):
     ]
     autocomplete_fields = ["member"]
     search_fields = ["member"]
+
+    readonly_fields = ["due_payments"]
+    fields = ["name", "member", "ammount", "total_payments", "due_payments_init", "due_payments"]
+    
+    @admin.display(description="Cuotas cobradas")
+    def due_payments(self, obj):
+        return obj.due_payments
 
 
 @admin.register(BankSync)

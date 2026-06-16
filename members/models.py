@@ -71,11 +71,16 @@ class DebtAmmend(models.Model):
     )
     ammount = models.DecimalField(max_digits=10, decimal_places=2)
     total_payments = models.SmallIntegerField(verbose_name="Total de cuotas")
-    due_payments = models.SmallIntegerField(verbose_name="Cuotas cobradas")
+    due_payments_init = models.SmallIntegerField(verbose_name="Cuotas cobradas al inicio")
     created_at = models.DateTimeField(auto_now_add=True)
     updated_at = models.DateTimeField(auto_now=True)
 
     history = HistoricalRecords()
+
+    @property
+    def due_payments(self):
+        payments = DebtLine.objects.filter(type="convenio_social", member=self.member).count()
+        return self.due_payments_init + payments
 
     @property
     def done(self):
