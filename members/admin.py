@@ -36,15 +36,16 @@ def generate_debt(modeladmin, request, queryset):
 
         remnant_ammount = member.total_debt - member.total_paid
 
-        # Saldos anteriores
-        if remnant_ammount != 0:
-            remnants = DebtLine(
-                member=member,
-                debt=month_debt,
-                type="saldo_anterior",
-                ammount=remnant_ammount,
-            )
-            remnants.save()
+        ## Saldos anteriores
+        # if remnant_ammount != 0:
+        #     remnants = DebtLine(
+        #         member=member,
+        #         debt=month_debt,
+        #         type="saldo_anterior",
+        #         ammount=remnant_ammount,
+        #     )
+        #     remnants.save()
+
         # Cuota social
         cuota_social = DebtLine(
             member=member,
