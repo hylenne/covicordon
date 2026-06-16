@@ -112,6 +112,17 @@ def generate_debt(modeladmin, request, queryset):
                 overdue_tax.save()
 
 
+@admin.action(description="Exonerar multa de atraso")
+def forgive_overdue(modeladmin, request, queryset):
+
+    config = Config.get_config()
+
+    for member in queryset:
+        overdue_fine = DebtLine.objects.filter(
+            debt=Debt.objects.filter(member=member).last(),
+            member=member,type="atraso_cuota")
+        for d in overdue_fine:
+            d.delete()
 
 
 @admin.register(DebtAmmend)
@@ -163,7 +174,7 @@ class MemberAdmin(SimpleHistoryAdmin):
 
     search_fields = ["member_number", "first_name", "last_name"]
 
-    actions = [generate_debt]
+    actions = [generate_debt, forgive_overdue]
 
 
 @admin.register(DebtLine)
