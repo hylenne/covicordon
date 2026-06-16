@@ -84,6 +84,20 @@ class DebtAmmend(models.Model):
     class Meta:
         verbose_name = "Convenio"
 
+class Allowance(models.Model):
+    name = models.CharField(max_length=128, verbose_name="Motivo")
+    member = models.ForeignKey(
+        Member, related_name="subsidios", on_delete=models.CASCADE
+    )
+    ammount = models.DecimalField(max_digits=10, decimal_places=2)
+    created_at = models.DateTimeField(auto_now_add=True)
+    updated_at = models.DateTimeField(auto_now=True)
+
+    history = HistoricalRecords()
+
+    class Meta:
+        verbose_name = "Subsidio"
+    
 
 class Debt(models.Model):
     member = models.ForeignKey(Member, on_delete=models.CASCADE, related_name="debts")
@@ -130,6 +144,7 @@ class DebtLine(models.Model):
         ("salon_comunal", "Salon comunal"),
         ("salon_otros", "Salon otros"),
         ("saldo_anterior", "Saldo anterior"),
+        ("subsidio", "Subsidio"),
         ("otros", "Otros"),
     )
 

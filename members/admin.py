@@ -16,6 +16,7 @@ from .models import (
     Config,
     Payment,
     BankSync,
+    Allowance,
 )
 
 # from .forms import BankSyncForm
@@ -75,6 +76,15 @@ def generate_debt(modeladmin, request, queryset):
             debt_ammend.due_payments += 1
             debt_ammend.save()
         
+        # Subsidios
+        for allowance in [al for al in member.subsidios.all()]:
+            al = DebtLine(
+                member=member,
+                type="subsidio",
+                ammount = - allowance.ammount,
+                debt=month_debt,
+            )
+            al.save()
 
         if not active_ammend and Debt.objects.filter(member=member).count()>1:
             payment_deadline = (
@@ -186,6 +196,13 @@ class DebtAdmin(SimpleHistoryAdmin):
     search_fields = ["member"]
     autocomplete_fields = ["member"]
     inlines = [DebtLineInline]
+
+@admin.register(Allowance)
+class AllowanceAdmin(SimpleHistoryAdmin):
+    list_display = [
+        "member",
+        "ammount",
+    ]
 
 
 admin.site.index_title = "Bienvenido a la administracion de Covicordon"
