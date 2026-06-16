@@ -55,6 +55,10 @@ class Member(models.Model):
         for debt in self.debts.all():
             total_debt += debt.total
         return total_debt
+    
+    @property
+    def balance(self):
+        return self.total_debt-self.total_paid
 
     class Meta:
         verbose_name = "Socio"
@@ -123,7 +127,7 @@ class Debt(models.Model):
         verbose_name = "Deuda"
 
     def __str__(self):
-        return f"Socio: {self.member.first_name} {self.member.last_name} - Total: {self.total}"
+        return f"Socio: {self.member.last_name} - {self.total} - {self.created_at.date()}"
 
 
 class DebtLine(models.Model):

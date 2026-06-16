@@ -170,9 +170,10 @@ class MemberAdmin(SimpleHistoryAdmin):
         "member_number",
         "first_name",
         "last_name",
+        "balance"
     ]
 
-    search_fields = ["member_number", "first_name", "last_name"]
+    search_fields = ["member_number", "first_name", "last_name", "balance"]
 
     actions = [generate_debt, forgive_overdue]
 
@@ -209,6 +210,7 @@ class DebtLineInline(admin.StackedInline):
 class DebtAdmin(SimpleHistoryAdmin):
     list_display = [
         "member",
+        "created_at",
         "total",
     ]
     search_fields = ["member"]
