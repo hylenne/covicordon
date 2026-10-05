@@ -1,3 +1,4 @@
+from decimal import Decimal
 from django.db import models
 from django.core.validators import MinValueValidator, MaxValueValidator
 from django.utils.translation import gettext_lazy as _
@@ -71,19 +72,62 @@ class DebtAmmend(models.Model):
     )
     ammount = models.DecimalField(max_digits=10, decimal_places=2)
     total_payments = models.SmallIntegerField(verbose_name="Total de cuotas")
+<<<<<<< Updated upstream
     due_payments = models.SmallIntegerField(verbose_name="Cuotas cobradas")
+=======
+    _paid_installments_init = models.SmallIntegerField(verbose_name="Cuotas cobradas al inicio")
+>>>>>>> Stashed changes
     created_at = models.DateTimeField(auto_now_add=True)
     updated_at = models.DateTimeField(auto_now=True)
 
     history = HistoricalRecords()
 
     @property
+<<<<<<< Updated upstream
+=======
+    def paid_installments(self):
+        installments = DebtLine.objects.filter(type="convenio_social", member=self.member).count()
+        return self._paid_installments_init + installments
+
+    @property
+>>>>>>> Stashed changes
     def done(self):
-        return (self.total_payments - self.due_payments) == 0
+        return (self.total_payments - self.paid_installments) == 0
 
     class Meta:
         verbose_name = "Convenio"
 
+<<<<<<< Updated upstream
+=======
+class Allowance(models.Model):
+    name = models.CharField(max_length=128, verbose_name="Motivo")
+    member = models.ForeignKey(
+        Member, related_name="subsidios", on_delete=models.CASCADE
+    )
+    ammount = models.DecimalField(max_digits=10, decimal_places=2)
+    created_at = models.DateTimeField(auto_now_add=True)
+    updated_at = models.DateTimeField(auto_now=True)
+
+    history = HistoricalRecords()
+
+    class Meta:
+        verbose_name = "Subsidio"
+    
+class OtherPayment(models.Model):
+    name = models.CharField(max_length=128, verbose_name="Concepto")
+    member = models.ForeignKey(
+        Member, related_name="otros_pagos", on_delete=models.CASCADE
+    )
+    ammount = models.DecimalField(max_digits=10, decimal_places=2)
+    created_at = models.DateTimeField(auto_now_add=True)
+    updated_at = models.DateTimeField(auto_now=True)
+
+    history = HistoricalRecords()
+
+    class Meta:
+        verbose_name = "Otros pagos mensuales"
+
+>>>>>>> Stashed changes
 
 class Debt(models.Model):
     member = models.ForeignKey(Member, on_delete=models.CASCADE, related_name="debts")
@@ -272,7 +316,11 @@ class Config(models.Model):
         max_digits=10,
         decimal_places=2,
         verbose_name="Valor unidad reajustable",
+<<<<<<< Updated upstream
         default=1621,
+=======
+        default=1941,
+>>>>>>> Stashed changes
     )
     gc = models.DecimalField(
         max_digits=10,
@@ -280,11 +328,31 @@ class Config(models.Model):
         verbose_name="Valor gastos comunes",
         default=3500,
     )
+<<<<<<< Updated upstream
     bedroom_price_ur = models.DecimalField(
         max_digits=10,
         decimal_places=2,
         verbose_name="Precio dormitorio en UR",
         default=2.96,
+=======
+    price_2_bedrooms_in_ur = models.DecimalField(
+        max_digits=10,
+        decimal_places=2,
+        verbose_name="Precio 2 dormitorios (UR)",
+        default=6.35,
+    )
+    price_3_bedrooms_in_ur = models.DecimalField(
+        max_digits=10,
+        decimal_places=2,
+        verbose_name="Precio 3 dormitorios (UR)",
+        default=9.31,
+    )
+    price_4_bedrooms_in_ur = models.DecimalField(
+        max_digits=10,
+        decimal_places=2,
+        verbose_name="Precio 4 dormitorios (UR)",
+        default=12.27,
+>>>>>>> Stashed changes
     )
     maintainance_fund = models.DecimalField(
         max_digits=10,
@@ -302,10 +370,22 @@ class Config(models.Model):
             date = self.updated_at
             return f"Configuracion al {date.day}/{date.month}/{date.year}"
         return "Configuracion"
+<<<<<<< Updated upstream
+=======
+    
+    @property
+    def bedroom_prices(self):
+        return [
+            self.price_2_bedrooms_in_ur,
+            self.price_3_bedrooms_in_ur,
+            self.price_4_bedrooms_in_ur,
+        ]
+>>>>>>> Stashed changes
 
     @classmethod
     def get_config(cls):
         config = cls.objects.first()
+
         if not config:
             config = cls()
             config.save()

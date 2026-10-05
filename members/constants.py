@@ -13,4 +13,8 @@ def gen_cuota_social(socio):
     COSTO_CUARTO_UR = global_config.bedroom_price_ur  # UNIDADES REAJUSTABLES
     FONDO_MANTENIMIENTO = global_config.maintainance_fund  # UNIDADES REAJUSTABLES
 
+<<<<<<< Updated upstream
     return VALOR_UR * ((COSTO_CUARTO_UR * socio.bedrooms) + FONDO_MANTENIMIENTO)
+=======
+    return VALOR_UR * ((COSTO_CUARTO_UR[socio.bedrooms-2])) #+ FONDO_MANTENIMIENTO)
+>>>>>>> Stashed changes
