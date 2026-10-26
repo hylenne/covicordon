@@ -55,6 +55,10 @@ class Member(models.Model):
         for debt in self.debts.all():
             total_debt += debt.total
         return total_debt
+    
+    @property
+    def balance(self):
+        return self.total_debt-self.total_paid
 
     class Meta:
         verbose_name = "Socio"
@@ -71,11 +75,16 @@ class DebtAmmend(models.Model):
     )
     ammount = models.DecimalField(max_digits=10, decimal_places=2)
     total_payments = models.SmallIntegerField(verbose_name="Total de cuotas")
-    due_payments = models.SmallIntegerField(verbose_name="Cuotas cobradas")
+    due_payments_init = models.SmallIntegerField(verbose_name="Cuotas cobradas al inicio")
     created_at = models.DateTimeField(auto_now_add=True)
     updated_at = models.DateTimeField(auto_now=True)
 
     history = HistoricalRecords()
+
+    @property
+    def due_payments(self):
+        payments = DebtLine.objects.filter(type="convenio_social", member=self.member).count()
+        return self.due_payments_init + payments
 
     @property
     def done(self):
@@ -84,6 +93,20 @@ class DebtAmmend(models.Model):
     class Meta:
         verbose_name = "Convenio"
 
+class Allowance(models.Model):
+    name = models.CharField(max_length=128, verbose_name="Motivo")
+    member = models.ForeignKey(
+        Member, related_name="subsidios", on_delete=models.CASCADE
+    )
+    ammount = models.DecimalField(max_digits=10, decimal_places=2)
+    created_at = models.DateTimeField(auto_now_add=True)
+    updated_at = models.DateTimeField(auto_now=True)
+
+    history = HistoricalRecords()
+
+    class Meta:
+        verbose_name = "Subsidio"
+    
 
 class Debt(models.Model):
     member = models.ForeignKey(Member, on_delete=models.CASCADE, related_name="debts")
@@ -104,7 +127,7 @@ class Debt(models.Model):
         verbose_name = "Deuda"
 
     def __str__(self):
-        return f"Socio: {self.member.first_name} {self.member.last_name} - Total: {self.total}"
+        return f"Socio: {self.member.last_name} - {self.total} - {self.created_at.date()}"
 
 
 class DebtLine(models.Model):
@@ -130,6 +153,7 @@ class DebtLine(models.Model):
         ("salon_comunal", "Salon comunal"),
         ("salon_otros", "Salon otros"),
         ("saldo_anterior", "Saldo anterior"),
+        ("subsidio", "Subsidio"),
         ("otros", "Otros"),
     )
 
@@ -272,7 +296,7 @@ class Config(models.Model):
         max_digits=10,
         decimal_places=2,
         verbose_name="Valor unidad reajustable",
-        default=1621,
+        default=1835.93,
     )
     gc = models.DecimalField(
         max_digits=10,
@@ -280,11 +304,23 @@ class Config(models.Model):
         verbose_name="Valor gastos comunes",
         default=3500,
     )
-    bedroom_price_ur = models.DecimalField(
+    bedroom_price_ur_2 = models.DecimalField(
         max_digits=10,
         decimal_places=2,
-        verbose_name="Precio dormitorio en UR",
-        default=2.96,
+        verbose_name="Precio 2 dormitorios (UR)",
+        default=6.35,
+    )
+    bedroom_price_ur_3 = models.DecimalField(
+        max_digits=10,
+        decimal_places=2,
+        verbose_name="Precio 3 dormitorios (UR)",
+        default=9.31,
+    )
+    bedroom_price_ur_4 = models.DecimalField(
+        max_digits=10,
+        decimal_places=2,
+        verbose_name="Precio 4 dormitorios (UR)",
+        default=12.27,
     )
     maintainance_fund = models.DecimalField(
         max_digits=10,
@@ -302,6 +338,14 @@ class Config(models.Model):
             date = self.updated_at
             return f"Configuracion al {date.day}/{date.month}/{date.year}"
         return "Configuracion"
+    
+    @property
+    def bedroom_prices(self):
+        return [
+            self.bedroom_price_ur_2,
+            self.bedroom_price_ur_3,
+            self.bedroom_price_ur_4,
+        ]
 
     @classmethod
     def get_config(cls):

@@ -1,70 +1,73 @@
-Nro de Socio,Nombre,Apellido,Apto,Dorm.,CÃ©dula,Activo
-1,Nelly,Chiappetty,110,2,1009524-3,Si
-6,Daniel,Abrevaya,410,2,1554321-7,Si
-12,Delia,Carrasco,003,3,18377261,Si
-18,Eduardo,Silva,010,3,3059454-6,Si
-23,Mary,Tafernaberry,411,2,1777154.3,Si
-24,Karen,Moreira,412,4,4083136-8,Si
-29,Mario,FernÃ¡ndez,109,3,2019534-0,Si
-37,NÃ©stor,Trotta,406,3,1643699-2,Si
-52,Beatriz,Garcia,,,,No
-59,Mariana,Olivera,208,3,3740109-7,Si
-61,Nelson,Negreira,,,,No
-67,Andres,Salsamendi,,,,No
-77,Lizbet,Silva,312,4,4410125-6,Si
-79,Karen,FernÃ¡ndez,302,2,4449824-1,Si
-80,Sebastian,Pardo,305,3,3862109-8,Si
-82,Camilo,Leira,,,,No
-87,Alen,FernÃ¡ndez,203,2,3178623-9,Si
-88,Patricia,LÃ³pez,103,3,1683791-6,Si
-92,Laura,Manitto,008,3,1809773-8,Si
-93,Federico,Labrea,,,,No
-94,Laura,Nauar,206,3,1925930-3,Si
-102,Cecilia,Ferro,106,3,4389081-0,Si
-106,Fanny,Lujan,,,,No
-110,MarÃ­a,FernÃ¡ndez,108,3,1518876-6,Si
-111,Maria,Costa,311,2,1759648-2,Si
-113,Carina,RodrÃ­guez,210,3,3504195-8,Si
-114,VÃ­ctor,RodrÃ­guez,006,3,3159746-4,Si
-115,Silvia,De LeÃ³n,205,3,1822474-5,Si
-118,Joel,Silvera,105,3,4478976-5,Si
-120,Ignacio,Segovia,007,3,3687689-1,Si
-122,RaÃºl,Pellejero,202,2,1752849-5,Si
-124,Blanca,Larraura,404,3,1602479-9,Si
-125,Andrea,Camargo,,,4386880-7,No
-127,Alejandra,Silvera,005,3,4469374-0,Si
-131,Alda,Viera,001,3,4148214-4,Si
-133,Lorena,Etchart,408,3,4439993-6,Si
-134,Claudia,Correa,303,3,3777324-6,Si
-135,Valeria,Doglio,213,4,1975140-8,Si
-136,Veronica,Mallo,002,3,3792562-9,Si
-137,Karen,Souza,111,4,42925365,Si
-142,Laura,Moyano,107,3,4316970-0,Si
-145,Teresa,Techera,301,3,1276816-7,Si
-147,Elizabeth,Buccino,104,3,1365330-1,Si
-148,Tania,Besil,004,3,3904389-7,Si
-149,Gonzalo,RodrÃ­guez,309,3,4376012-6,Si
-151,Adriana,Moreira,304,3,3089362-3,Si
-153,Stella,Rodrigues,,,,No
-154,Rodrigo,Gaudin,,,,No
-155,Mario,NuÃ±ez,009,2,2532261-9,Si
-156,Jorge,Umpierrez,409,3,2859163-5,Si
-157,Maria,Silva,401,2,1980135-8,Si
-158,Rosana,Ortiz,207,3,3195576-3,Si
-159,Veronica,RodrÃ­guez,,,,No
-160,Leonardo,RodrÃ­guez,306,3,3852340-8,Si
-161,Marcelo ,Pietrafesa,211,3,36954203,Si
-162,Stephanie,Miranda,407,3,4248126-0,Si
-163,Andrea,Gonzalez,102,3,4228122-2,Si
-164,Jessica,Silveira,308,3,4911627-6,Si
-165,Stefany,AsunciÃ³n,310,3,4862074-1,Si
-166,VerÃ³nica,Piano,307,3,3894530-3,Si
-167,Lourdes,Huerta,402,2,2942595-2,Si
-168,Lucia,Rodriguez,403,3,4704320-7,Si
-169,Alejandra,Acosta,405,3,4363506-2,Si
-170,Maria Elena,Burmidad,209,3,4127887-8,Si
-171,Andrea,Camargo,,,,No
-172,Fiorella,Mallo,204,3,4621015-2,Si
-173,Eliana ,Bergara,101,2,4023515-2,Si
-174,kalil,De Lima,212,2,4580203-9,Si
-175,Ana,FernÃ©ndez,410,3,41099539,Si
+Nro de Socio;Nombre y apellido;Nombre;Apellido;Apto;Dorm.;Cédula;Activo;
+1;Nelly Chiappetty;Nelly;Chiappetty;110;2;;No;
+6;Daniel Abrevaya;Daniel;Abrevaya;201;2;1554321-7;Si;
+12;Delia Carrasco;Delia;Carrasco;;3;;No;
+18;Eduardo Silva;Eduardo;Silva;010;3;3059454-6;Si;
+23;Mary Tafernaberry;Mary;Tafernaberry;411;2;1777154.3;Si;
+24;Karen Moreira;Karen;Moreira;412;4;4083136-8;Si;
+29;Mario Fernández;Mario;Fernández;109;3;2019534-0;Si;
+37;Néstor Trotta;Néstor;Trotta;406;3;1643699-2;Si;
+52;Beatriz Garcia;Beatriz;Garcia;;;;No;
+59;Mariana Olivera;Mariana;Olivera;208;3;3740109-7;Si;
+61;Nelson Negreira;Nelson;Negreira;;;;No;
+67;Andres Salsamendi;Andres;Salsamendi;;;;No;
+77;Lizbet Silva;Lizbet;Silva;312;4;4410125-6;Si;
+79;Karen Fernández;Karen;Fernández;302;2;4449824-1;Si;
+80;Sebastian Pardo;Sebastian;Pardo;305;3;3862109-8;Si;
+82;Camilo Leira;Camilo;Leira;;;;No;
+87;Alen Fernández;Alen;Fernández;203;2;3178623-9;Si;
+88;Patricia López;Patricia;López;103;3;1683791-6;Si;
+92;Laura Manitto;Laura;Manitto;008;3;1809773-8;Si;
+93;Federico Labrea;Federico;Labrea;;;;No;
+94;Ana Clara Cachon;Ana Clara;Cachon;206;3;4896607-2;Si;
+102;Cecilia Ferro;Cecilia;Ferro;106;3;4389081-0;Si;
+106;Fanny Lujan;Fanny;Lujan;;;;No;
+110;María Fernández;María;Fernández;108;3;1518876-6;Si;
+111;Maria Costa;Maria;Costa;311;2;1759648-2;Si;
+113;Carina Rodríguez;Carina;Rodríguez;210;3;3504195-8;Si;
+114;Víctor Rodríguez;Víctor;Rodríguez;006;3;3159746-4;Si;
+115;Silvia De León;Silvia;De León;205;3;1822474-5;Si;
+118;Yoel Silvera;Yoel;Silvera;105;3;4478976-5;Si;
+120;Ignacio Segovia;Ignacio;Segovia;007;3;3687689-1;Si;
+122;Raúl Pellejero;Raúl;Pellejero;202;2;1752849-5;Si;
+124;Blanca Larraura;Blanca;Larraura;404;3;1602479-9;Si;
+125;Andrea Camargo;Andrea;Camargo;;;;No;
+127;Alejandra Silvera;Alejandra;Silvera;005;3;4469374-0;Si;
+131;Alba Viera;Alba;Viera;001;3;4148214-4;Si;
+133;Lorena Etchart;Lorena;Etchart;408;3;4439993-6;Si;
+134;Claudia Correa;Claudia;Correa;303;3;3777324-6;Si;
+135;Valeria Doglio;Valeria;Doglio;213;4;1975140-8;Si;
+136;Veronica Mallo;Veronica;Mallo;002;3;3792562-9;Si;
+137;Karen Souza;Karen;Souza;111;4;4292536-5;Si;
+142;Laura Moyano;Laura;Moyano;107;3;4316970-0;Si;;;;7360;;;;;;;;;;;;;
+145;Teresa Techera;Teresa;Techera;301;2;1276816-7;Si;
+147;Elizabeth Buccino;Elizabeth;Buccino;104;3;1365330-1;Si;
+148;Tania Besil;Tania;Besil;004;3;3904389-7;Si;
+149;Gonzalo Rodríguez;Gonzalo;Rodríguez;309;3;4376012-6;Si;
+151;Adriana Moreira;Adriana;Moreira;304;3;3089362-3;Si;
+153;Stella Rodrigues;Stella;Rodrigues;;;;No;
+154;Rodrigo Gaudin;Rodrigo;Gaudin;;;;No;
+155;Mario Nuñez;Mario;Nuñez;009;2;2532261-9;Si;
+156;Jorge Umpierrez;Jorge;Umpierrez;409;3;2859163-5;Si;
+157;Maria Silva;Maria;Silva;401;2;1980135-8;Si;
+158;Rosana Ortiz;Rosana;Ortiz;207;3;3195576-3;Si;
+159;Veronica Rodríguez;Veronica;Rodríguez;;;;No;
+160;Leonardo Rodríguez;Leonardo;Rodríguez;306;3;3852340-8;Si;
+161;Marcelo Pietrafesa;Marcelo ;Pietrafesa;211;3;3695420-3;Si;
+162;Stephanie Miranda;Stephanie;Miranda;;;;No;
+163;Andrea Gonzalez;Andrea;Gonzalez;102;3;4228122-2;Si;
+164;Jessica Silveira;Jessica;Silveira;308;3;4911627-6;Si;
+165;Stefany Asunción;Stefany;Asunción;310;3;4862074-1;Si;
+166;Verónica Piano;Verónica;Piano;307;3;3894530-3;Si;
+167;Lourdes Huerta;Lourdes;Huerta;402;2;2942595-2;Si;
+168;Lucía Rodríguez;Lucia;Rodriguez;403;3;4704320-7;Si;
+169;Alejandra Acosta;Alejandra;Acosta;405;3;4363506-2;Si;
+170;María Elena Burmidad;Maria Elena;Burmidad;209;3;4127887-8;Si;
+171;Andrea Camargo;Andrea;Camargo;;;;No;
+172;Fiorella Mallo;Fiorella;Mallo;003;3;4621015-2;Si;
+173;Eliana Bergara;Eliana ;Bergara;101;2;4023515-2;Si;
+174;Kalil  De Lima;Kalil;de Lima;212;2;4580203-9;Si;
+175;Ana María Fernández;Ana;Fernández;410;3;4109953-9;Si;
+176;Paula Funcasta;Paula;Funcasta;204;3;4.896.696-9;Si;
+177;Virginia Yebenes;Virginia ;Yebenes;407;3;4.309.699-3;Si;
+178;Laura Nauar;Lauar;Nauar;110;2;1925930-3;Si;
